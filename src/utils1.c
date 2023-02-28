@@ -6,7 +6,7 @@
 /*   By: ajari <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 20:53:52 by ajari             #+#    #+#             */
-/*   Updated: 2023/02/28 17:05:27 by ajari            ###   ########.fr       */
+/*   Updated: 2023/03/01 00:51:07 by ajari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,14 @@ void	check_die(t_philo *p, int i)
 		while (i < p[0].n)
 		{
 			if (check_eat(eat, p[0].n))
+			{
+				free(eat);
 				return ;
+			}
 			pthread_mutex_lock(&p[i].g);
 			if (!check(p, i, eat))
 			{
+				free(eat);
 				pthread_mutex_unlock(&p[i].g);
 				return ;
 			}
@@ -68,7 +72,6 @@ void	check_die(t_philo *p, int i)
 			i++;
 		}
 	}
-	free(eat);
 }
 
 int	check_str(const char *str)
